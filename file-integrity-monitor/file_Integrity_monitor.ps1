@@ -12,6 +12,7 @@ Function Calculate-File-Hash($filepath) {
 }
 
 $hash = Calculate-File-Hash "files/test.js" # store the hash $hash variable
+Write-Host "Hash algorithm and the hash are $($hash.algorithm) , $($hash.hash) respectively."
 
 if ($response -eq "A".ToUpper()) {
     # Calculate the hash of the files and store in the baseline
