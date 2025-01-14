@@ -24,8 +24,8 @@ if ($response -eq "A".ToUpper()) {
 
     # Calculate the hashes and write to baseline.txt
     foreach($file in $targetFiles) {
-        # $file
-        "$($file.Name) | $($file.Size)"
+        $hash = Calculate-File-Hash $file.FullName
+        "$($hash.Path) | $($hash.Hash)" | Out-File -FilePath .\baseline.txt -Append   
     }
 
 } elseif ($response -eq "B".ToUpper()) {
