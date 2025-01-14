@@ -11,12 +11,19 @@ Function Calculate-File-Hash($filepath) {
     return $filehash
 }
 
-$hash = Calculate-File-Hash "files/test.js" # store the hash $hash variable
+$hash = Calculate-File-Hash "target_Files/test.js" # store the hash $hash variable
 Write-Host "Hash algorithm and the hash are $($hash.algorithm) , $($hash.hash) respectively."
 
 if ($response -eq "A".ToUpper()) {
     # Calculate the hash of the files and store in the baseline
-    Write-Host "Calculating Hashes, make new baseline.txt" -ForegroundColor Cyan     
+    Write-Host "Calculating Hashes...." -ForegroundColor Cyan
+    Write-Host "May make new baseline.txt...." -ForegroundColor Cyan
+
+    # Fetch all files from "target folder"
+    $files = Get-ChildItem -Path target_Files
+    $files
+
+    # Calculate the hashes and write to baseline.txt
 
 } elseif ($response -eq "B".ToUpper()) {
     # Begin monitoring files with saved Baseline
