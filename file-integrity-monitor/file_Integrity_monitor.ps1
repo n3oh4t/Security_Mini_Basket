@@ -20,10 +20,13 @@ if ($response -eq "A".ToUpper()) {
     Write-Host "May make new baseline.txt...." -ForegroundColor Cyan
 
     # Fetch all files from "target folder"
-    $files = Get-ChildItem -Path target_Files
-    $files
+    $targetFiles = Get-ChildItem -Path target_Files
 
     # Calculate the hashes and write to baseline.txt
+    foreach($file in $targetFiles) {
+        # $file
+        "$($file.Name) | $($file.Size)"
+    }
 
 } elseif ($response -eq "B".ToUpper()) {
     # Begin monitoring files with saved Baseline
