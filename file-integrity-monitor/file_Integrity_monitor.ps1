@@ -6,6 +6,13 @@ $response = Read-Host -Prompt "Please enter 'A' or 'B'"
 Write-Host "User entered option: $($response)"
 Write-Host ""
 
+Function Calculate-File-Hash($filepath) {
+    $filehash = Get-FileHash -Path $filepath -Algorithm SHA512
+    return $filehash
+}
+
+$hash = Calculate-File-Hash "files/test.js" # store the hash $hash variable
+
 if ($response -eq "A".ToUpper()) {
     # Calculate the hash of the files and store in the baseline
     Write-Host "Calculating Hashes, make new baseline.txt" -ForegroundColor Cyan     
