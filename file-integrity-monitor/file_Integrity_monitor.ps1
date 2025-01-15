@@ -11,10 +11,19 @@ Function Calculate-File-Hash($filepath) {
     return $filehash
 }
 
-$hash = Calculate-File-Hash "target_Files/test.js" # store the hash $hash variable
-Write-Host "Hash algorithm and the hash are $($hash.algorithm) , $($hash.hash) respectively."
+Function Erase-Baseline-If-Already-Exists() {
+    $baselinexists = Test-Path -Path .\baseline.txt # to check if file exists
+
+    if ($baselinexists) {
+        # Delete it
+        Remove-Item -Path .\baseline.txt
+    }
+}
 
 if ($response -eq "A".ToUpper()) {
+    #Delete baseline if it already exists
+    Erase-Baseline-If-Already-Exists
+
     # Calculate the hash of the files and store in the baseline
     Write-Host "Calculating Hashes...." -ForegroundColor Cyan
     Write-Host "May make new baseline.txt...." -ForegroundColor Cyan
@@ -25,7 +34,8 @@ if ($response -eq "A".ToUpper()) {
     # Calculate the hashes and write to baseline.txt
     foreach($file in $targetFiles) {
         $hash = Calculate-File-Hash $file.FullName
-        "$($hash.Path) | $($hash.Hash)" | Out-File -FilePath .\baseline.txt -Append   
+        # "$($hash.Path) | $($hash.Hash)" | Set-Content -Path .\baseline.txt   
+        "$($hash.Path) | $($hash.Hash)" | Out-File -FilePath .\baseline.txt -Append 
     }
 
 } elseif ($response -eq "B".ToUpper()) {
