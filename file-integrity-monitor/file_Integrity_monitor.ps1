@@ -39,6 +39,11 @@ if ($response -eq "A".ToUpper()) {
     }
 
 } elseif ($response -eq "B".ToUpper()) {
+    # Load file | hash from baseline.txt and store in a map/dictionary
+    $file_hash_map = @{} # creates empty dictionary
+    $file_hash_map.add("path" , "hash")
+    $file_hash_map
+
     # Begin monitoring files with saved Baseline
     Write-Host "Read exisiting baseline.txt , start monitoring files " -ForegroundColor Yellow
 }
