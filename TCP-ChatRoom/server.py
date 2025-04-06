@@ -2,7 +2,7 @@ import threading
 import socket
 
 host = '127.0.0.1'  # localhost = hosting on our local machine
-port = 98765  # random port (un-reserved port)
+port = 54321  # random port (un-reserved port)
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 socket.socket().setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,
@@ -35,3 +35,18 @@ def handle(client):
             aliases.remove(alias)  # removing the username as well from the list
             broadcast_message(f"{alias} has left the chat!".encode('ascii')) # broadcast to all clients that the particular client has left.
             break
+
+def receive(): #receive client connection
+    while True:
+        client, ip_address_port_num = server.accept()
+        print(f"Yahoo!! Successfully connected to client with IP Address = {ip_address_port_num[0]} and port number = {ip_address_port_num[1]}")
+
+        client.send("USERNAME".encode('ascii'))
+        alias = client.recv(1024).decode('ascii') # decoding the response received.
+
+        aliases.append(alias)
+        clients.append(client)
+
+        print(f"Alias of the client is {alias}")
+        broadcast_message(f"{alias} has joined the chat!".encode('ascii'))
+        client.send('Connected to the server'.encode('ascii'))
