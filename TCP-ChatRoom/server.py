@@ -50,3 +50,6 @@ def receive(): #receive client connection
         print(f"Alias of the client is {alias}")
         broadcast_message(f"{alias} has joined the chat!".encode('ascii'))
         client.send('Connected to the server'.encode('ascii'))
+
+        thread = threading.Thread(target=handle, args=(client,))
+        thread.start()
