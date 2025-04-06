@@ -4,7 +4,7 @@ import threading
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(('127.0.0.1', 54321))
 
-alias = input("Choose your alias")
+alias = input("Choose your alias: ")
 
 def receive():
     while True:
